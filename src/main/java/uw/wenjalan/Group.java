@@ -1,5 +1,6 @@
 package uw.wenjalan;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,18 +51,9 @@ public class Group {
     public List<String> getRoles() {
         List<String> roles = new LinkedList<>();
         for (Student s : members) {
-            roles.add(s.getRole());
+            roles.addAll(Arrays.asList(s.getRoles()));
         }
         return roles;
-    }
-
-    // returns a list of genders this group has
-    public List<String> getGenders() {
-        List<String> genders = new LinkedList<>();
-        for (Student s : members) {
-            genders.add(s.getGender());
-        }
-        return genders;
     }
 
     // getters //
@@ -79,7 +71,6 @@ public class Group {
         }
         sb.append("Mean Time Zone: ").append(getMeanTimeZone()).append("\n");
         sb.append("Group Roles: ").append(getRoles()).append("\n");
-        sb.append("Group Genders: ").append(getGenders());
         return sb.toString();
     }
 }

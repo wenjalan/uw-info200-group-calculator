@@ -1,12 +1,14 @@
 package uw.wenjalan;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 // Reads an .xls file (excel 1997-2003) containing the student responses to
@@ -36,11 +38,59 @@ public class XlsSurveyReader {
         // get the first sheet (there should only be one)
         Sheet sheet = workbook.getSheetAt(0);
 
-        // print it?
-        System.out.println(sheet);
+        // for each student in the sheet, create a new Student object
+        // rows and cols are offset by 1 since excel is 1-based but in here it's 0-based
+        List<Student> students = new ArrayList<>();
+        for (int i = cfg.DATA_START_ROW - 1; i <= sheet.getLastRowNum(); i++) {
+            // retrieve this row
+            Row row = sheet.getRow(i);
 
-        // return nothing
-        return null;
+            // get the student's name
+            String studentName = row.getCell(cfg.LAST_NAME_COL - 1).toString() + ", " +
+                    row.getCell(cfg.FIRST_NAME_COL - 1).toString();
+
+            // get the student's email
+            String studentEmail = row.getCell(cfg.UW_EMAIL_COL - 1).toString();
+
+            // todo: get their timezone offset
+            int timeZoneUTFOffset = getUTCOffSet(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
+
+            // get their preferred role
+            String[] preferredRoles = row.getCell(cfg.PREFERRED_ROLES_COL - 1).toString().split(", ");
+
+            // get their preferred teammates, if they have them
+            String[] preferredTeammates;
+            if (row.getCell(cfg.HAS_PREFERRED_TEAMMATES_COL - 1).toString().equalsIgnoreCase("Yes") &&
+                row.getCell(cfg.PREFERRED_TEAMMATES_COL - 1) != null) {
+                // todo: grab all valid UW NetIDs from this string here
+                preferredTeammates = row.getCell(cfg.PREFERRED_TEAMMATES_COL - 1).toString().split("\n");
+            } else {
+                preferredTeammates = new String[0];
+            }
+
+            // create a Student
+            Student student = new Student(
+                    studentName,
+                    studentEmail,
+                    timeZoneUTFOffset,
+                    preferredTeammates,
+                    preferredRoles);
+
+            // add it to our list
+            students.add(student);
+        }
+
+        // return students
+        return students;
+    }
+
+    // returns an int associated with a given response for a timezone
+    // this method exists because the way people respond for a given time zone can vary
+    // returns: the number of hours, N, in UTC+N, describing the timezone of this response
+    // example: Pacific Standard Time (PDT) would return -7, because PDT is 7 hours behind UTC
+    private static int getUTCOffSet(String timeZoneResponse) {
+        // todo: parse strings to find correct offset
+        return -7;
     }
 
 }
