@@ -53,7 +53,10 @@ public class XlsSurveyReader {
             double timeZoneUTFOffset = Double.parseDouble(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
 
             // get their preferred role
-            String[] preferredRoles = row.getCell(cfg.PREFERRED_ROLES_COL - 1).toString().split(", ");
+            String[] preferredRoles = {};
+            if (row.getCell(cfg.PREFERRED_ROLES_COL - 1) != null) {
+                preferredRoles = row.getCell(cfg.PREFERRED_ROLES_COL - 1).toString().split(", ");
+            }
 
             // get their preferred teammates, if they have them
             String[] preferredTeammates;

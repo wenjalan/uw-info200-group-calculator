@@ -1,8 +1,6 @@
 package uw.wenjalan;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 // Represents a Group of Students
 //
@@ -58,9 +56,9 @@ public class Group {
         return Math.round(timeZoneMean);
     }
 
-    // returns a list of roles this group has
-    public List<String> getRoles() {
-        List<String> roles = new LinkedList<>();
+    // returns a list of unique roles this group has
+    public Set<String> getRoles() {
+        Set<String> roles = new HashSet<>();
         for (Student s : members) {
             roles.addAll(Arrays.asList(s.getRoles()));
         }
@@ -78,7 +76,8 @@ public class Group {
         StringBuilder sb = new StringBuilder();
         sb.append("Members (").append(members.size()).append("):\n");
         for (Student s : members) {
-            sb.append("\t").append(s.getName()).append(" (").append(s.getUwEmail()).append("), TZO: ").append(s.getTimezone()).append("\n");
+//            sb.append("\t").append(s.getName()).append(" (").append(s.getUwEmail()).append("), TZO: ").append(s.getTimezone()).append("\n");
+            sb.append("\t" + s.toString() + "\n");
         }
         sb.append("Mean Time Zone: ").append(getMeanTimeZone()).append("\n");
         sb.append("Group Roles: ").append(getRoles());
@@ -92,6 +91,27 @@ public class Group {
 
     // returns the number of role collisions (members with the same roles) with another group
     public int getRoleCompatibility(Group other) {
-        return 0;
+        // count the number of collisions (instances where two or more people want the same role)
+        Map<String, Integer> roleCounts = new HashMap<>();
+        for (Student s : members) {
+            for (String role : s.getRoles()) {
+                roleCounts.putIfAbsent(role, 0);
+                roleCounts.put(role, roleCounts.get(role) + 1);
+            }
+        }
+        for (Student s : other.members) {
+            for (String role : s.getRoles()) {
+                roleCounts.putIfAbsent(role, 0);
+                roleCounts.put(role, roleCounts.get(role) + 1);
+            }
+        }
+
+        // collisions = sum of all requests for roles - unique roles requested
+        int sum = 0;
+        for (int count : roleCounts.values()) {
+            sum += count;
+        }
+        sum -= roleCounts.size();
+        return sum;
     }
 }
