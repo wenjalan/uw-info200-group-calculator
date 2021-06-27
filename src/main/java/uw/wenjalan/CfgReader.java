@@ -177,6 +177,15 @@ public class CfgReader {
 
             // store the pair in the builder
             switch (key) {
+                case "MIN_GROUP_SIZE":
+                    builder.setMinGroupSize(val);
+                    break;
+                case "MAX_GROUP_SIZE":
+                    builder.setMaxGroupSize(val);
+                    break;
+                case "MAX_TIME_DIFFERENCE":
+                    builder.setMaxTimeDifference(val);
+                    break;
                 case "DATA_START_ROW":
                     builder.setDataStartRow(val);
                     break;

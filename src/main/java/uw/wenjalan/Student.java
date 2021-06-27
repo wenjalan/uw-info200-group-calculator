@@ -11,16 +11,16 @@ public class Student {
     // fields
     private final String name;
     private final String uwEmail;
-    private final int timezone;
+    private final double timezone;
     private final String[] preferredTeammates;
     private final String[] roles;
 
     // constructor
     // name: name of the student, formatted as "LASTNAME, FIRSTNAME"
-    // timezone: the timezone of this student, as an integer offset from UTC
+    // timezone: the timezone of this student, in hours ahead of Seattle (PST)
     // roles: the preferred roles of this student
     // gender: the gender of this student
-    public Student(String name, String studentEmail, int timezone, String[] preferredTeammates, String[] roles) {
+    public Student(String name, String studentEmail, double timezone, String[] preferredTeammates, String[] roles) {
         this.name = name;
         this.uwEmail = studentEmail;
         this.timezone = timezone;
@@ -37,7 +37,7 @@ public class Student {
         return uwEmail;
     }
 
-    public int getTimezone() {
+    public double getTimezone() {
         return timezone;
     }
 

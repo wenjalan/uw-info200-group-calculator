@@ -52,8 +52,8 @@ public class XlsSurveyReader {
             // get the student's email
             String studentEmail = row.getCell(cfg.UW_EMAIL_COL - 1).toString();
 
-            // todo: get their timezone offset
-            int timeZoneUTFOffset = getUTCOffSet(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
+            // get their timezone offset
+            double timeZoneUTFOffset = Double.parseDouble(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
 
             // get their preferred role
             String[] preferredRoles = row.getCell(cfg.PREFERRED_ROLES_COL - 1).toString().split(", ");
@@ -82,15 +82,6 @@ public class XlsSurveyReader {
 
         // return students
         return students;
-    }
-
-    // returns an int associated with a given response for a timezone
-    // this method exists because the way people respond for a given time zone can vary
-    // returns: the number of hours, N, in UTC+N, describing the timezone of this response
-    // example: Pacific Standard Time (PDT) would return -7, because PDT is 7 hours behind UTC
-    private static int getUTCOffSet(String timeZoneResponse) {
-        // todo: parse strings to find correct offset
-        return -7;
     }
 
 }
