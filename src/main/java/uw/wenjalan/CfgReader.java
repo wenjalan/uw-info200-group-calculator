@@ -16,6 +16,9 @@ public class CfgReader {
         // builder class
         public static class Builder {
             // fields
+            private int minGroupSize;
+            private int maxGroupSize;
+            private int maxTimeDifference;
             private int dataStartRow;
             private int lastNameCol;
             private int firstNameCol;
@@ -27,10 +30,34 @@ public class CfgReader {
 
             // build method
             public Config build() {
-                return new Config(dataStartRow, lastNameCol, firstNameCol, uwEmailCol, timeZoneCol, hasPreferredTeammatesCol, preferredTeammatesCol, preferredRolesCol);
+                return new Config(minGroupSize, maxGroupSize, maxTimeDifference, dataStartRow, lastNameCol, firstNameCol, uwEmailCol, timeZoneCol, hasPreferredTeammatesCol, preferredTeammatesCol, preferredRolesCol);
             }
 
             // getters and setters
+            public int getMinGroupSize() {
+                return minGroupSize;
+            }
+
+            public void setMinGroupSize(int minGroupSize) {
+                this.minGroupSize = minGroupSize;
+            }
+
+            public int getMaxGroupSize() {
+                return maxGroupSize;
+            }
+
+            public void setMaxGroupSize(int maxGroupSize) {
+                this.maxGroupSize = maxGroupSize;
+            }
+
+            public int getMaxTimeDifference() {
+                return maxTimeDifference;
+            }
+
+            public void setMaxTimeDifference(int maxTimeDifference) {
+                this.maxTimeDifference = maxTimeDifference;
+            }
+
             public int getDataStartRow() {
                 return dataStartRow;
             }
@@ -97,6 +124,9 @@ public class CfgReader {
         }
 
         // fields (public constants)
+        public final int MIN_GROUP_SIZE;
+        public final int MAX_GROUP_SIZE;
+        public final int MAX_TIME_DIFFERENCE;
         public final int DATA_START_ROW;
         public final int LAST_NAME_COL;
         public final int FIRST_NAME_COL;
@@ -107,7 +137,10 @@ public class CfgReader {
         public final int PREFERRED_ROLES_COL;
 
         // private constructor
-        private Config(int DATA_START_ROW, int LAST_NAME_COL, int FIRST_NAME_COL, int UW_EMAIL_COL, int TIME_ZONE_COL, int HAS_PREFERRED_TEAMMATES_COL, int PREFERRED_TEAMMATES_COL, int PREFERRED_ROLES_COL) {
+        private Config(int MIN_GROUP_SIZE, int MAX_GROUP_SIZE, int MAX_TIME_DIFFERENCE, int DATA_START_ROW, int LAST_NAME_COL, int FIRST_NAME_COL, int UW_EMAIL_COL, int TIME_ZONE_COL, int HAS_PREFERRED_TEAMMATES_COL, int PREFERRED_TEAMMATES_COL, int PREFERRED_ROLES_COL) {
+            this.MIN_GROUP_SIZE = MIN_GROUP_SIZE;
+            this.MAX_GROUP_SIZE = MAX_GROUP_SIZE;
+            this.MAX_TIME_DIFFERENCE = MAX_TIME_DIFFERENCE;
             this.DATA_START_ROW = DATA_START_ROW;
             this.LAST_NAME_COL = LAST_NAME_COL;
             this.FIRST_NAME_COL = FIRST_NAME_COL;
