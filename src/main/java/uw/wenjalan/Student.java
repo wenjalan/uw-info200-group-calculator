@@ -41,6 +41,10 @@ public class Student {
         return timezone;
     }
 
+    public String[] getPreferredTeammates() {
+        return preferredTeammates;
+    }
+
     public String[] getRoles() {
         return roles;
     }

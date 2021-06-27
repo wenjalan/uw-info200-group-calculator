@@ -27,10 +27,12 @@ public class XlsSurveyReaderTests {
         String test2 = "somebody once told me the world was gonna roll me";
         String test3 = "somestudent3, student3@uw.edu";
         String test4 = "somestudent4, student4@uw.edu\nsomestudent5, student5@uw.edu";
+        String test5 = "somestudent6，student6@uw.edu";
         System.out.println(Arrays.toString(XlsSurveyReader.extractUwEmails(test1)));
         System.out.println(Arrays.toString(XlsSurveyReader.extractUwEmails(test2)));
         System.out.println(Arrays.toString(XlsSurveyReader.extractUwEmails(test3)));
         System.out.println(Arrays.toString(XlsSurveyReader.extractUwEmails(test4)));
+        System.out.println(Arrays.toString(XlsSurveyReader.extractUwEmails(test5)));
     }
 
 }

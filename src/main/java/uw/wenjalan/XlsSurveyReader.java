@@ -85,6 +85,10 @@ public class XlsSurveyReader {
     // returns: an array of UW emails, delimited by either a space " " or a comma "," or a newline "\n"
     public static String[] extractUwEmails(String str) {
         List<String> emails = new ArrayList<>();
+
+        // remove all commas and replace with spaces
+        str = str.replaceAll("[,，]", " ");
+
         String[] tokens = str.split("\\s+");
         for (String token : tokens) {
             if (token.endsWith("@uw.edu")) {

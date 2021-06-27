@@ -35,6 +35,17 @@ public class Group {
         return this.members.remove(student);
     }
 
+    // returns whether a given Student is in this group
+    // uwId: their UW NetID, in @uw.edu format
+    public boolean containsStudent(String uwId) {
+        for (Student s : members) {
+            if (s.getUwEmail().equalsIgnoreCase(uwId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // calculates the average timezone of this group
     // the average timezone is defined as the mean of the timezones of all
     // the members in the group
@@ -65,12 +76,12 @@ public class Group {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Members (").append(members.size()).append(")\n");
+        sb.append("Members (").append(members.size()).append("):\n");
         for (Student s : members) {
-            sb.append(s.getName()).append("\n");
+            sb.append("\t").append(s.getName()).append(" (").append(s.getUwEmail()).append(")").append("\n");
         }
         sb.append("Mean Time Zone: ").append(getMeanTimeZone()).append("\n");
-        sb.append("Group Roles: ").append(getRoles()).append("\n");
+        sb.append("Group Roles: ").append(getRoles());
         return sb.toString();
     }
 }
