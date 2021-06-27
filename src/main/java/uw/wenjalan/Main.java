@@ -39,7 +39,9 @@ public class Main {
         List<Group> groups = generateGroups(students, config);
 
         // print them out for now
-        System.out.println(groups);
+        for (Group g : groups) {
+            System.out.println(g + "\n");
+        }
     }
 
     // Generates groups of students with a given configuration.
@@ -55,6 +57,9 @@ public class Main {
     //  2. There must be at least two groups that can be combined and not exceed the maximum time difference in config
     //  3. Once there are no more valid combinations that can be made, processing stops
     public static List<Group> generateGroups(List<Student> students, CfgReader.Config config) {
+        // a final list of groups to send back
+        List<Group> finalGroups = new LinkedList<>();
+
         // a map of UW Net IDs to Student objects
         Map<String, Student> idsToStudents = new HashMap<>();
         students.forEach((s) -> idsToStudents.put(s.getUwEmail().toLowerCase(), s));
@@ -88,13 +93,95 @@ public class Main {
             }
         }
 
-        // pause
+//        // pause
+//        Set<Group> groups = new HashSet<>(studentToGroups.values());
+//        System.out.println("Created " + groups.size() + " initial groups");
+//        for (Group g : groups) {
+//            System.out.println(g + "\n\n");
+//        }
+
+        // add each group to a PriorityQueue based on their size
         Set<Group> groups = new HashSet<>(studentToGroups.values());
-        for (Group g : groups) {
-            System.out.println(g + "\n\n");
+        // pq is set to arrange from largest (front) to smallest (back) group
+        PriorityQueue<Group> pq = new PriorityQueue<>(
+                Collections.reverseOrder(
+                        Comparator.comparingInt(Group::size)
+                )
+        );
+        pq.addAll(groups);
+
+//        // print groups in order I guess
+//        for (int i = 0; i < pq.size(); i++) {
+//            System.out.println(i + ": " + pq.remove() + "\n");
+//        }
+
+        // while there are groups remaining in the pq, combine groups
+        while (!pq.isEmpty()) {
+            // get the next group
+            Group g = pq.remove();
+
+            // if this group meets or exceeds the size limit, mark them complete and continue
+            if (g.size() >= config.MAX_GROUP_SIZE) {
+                finalGroups.add(g);
+                continue;
+            }
+
+            // find all groups which we can combine with without going over the max size
+            List<Group> canCombine = new LinkedList<>();
+            for (Group other : pq) {
+                if (g.size() + other.size() <= config.MAX_GROUP_SIZE) {
+                    canCombine.add(other);
+                }
+            }
+
+            // find all groups whose difference in timezones is the minimum
+            long minDifference = Integer.MAX_VALUE;
+            List<Group> leastTimeDifference = new LinkedList<>();
+            for (Group other : canCombine) {
+                long timeDifference = Math.abs(g.getMeanTimeZone() - other.getMeanTimeZone());
+                if (timeDifference == minDifference) {
+                    leastTimeDifference.add(other);
+                }
+                else if (timeDifference < minDifference) {
+                    leastTimeDifference.clear();
+                    leastTimeDifference.add(other);
+                    minDifference = timeDifference;
+                }
+            }
+
+            // if the min time difference was greater than the allowed threshold, automatically mark this group complete
+            if (minDifference > config.MAX_TIME_DIFFERENCE) {
+                finalGroups.add(g);
+                continue;
+            }
+
+            // of the leastTimeDifference groups, find all groups whose role compatibility is the greatest, lower scores are better
+            int bestCompatibility = Integer.MAX_VALUE;
+            List<Group> mostCompatible = new LinkedList<>();
+            for (Group other : leastTimeDifference) {
+                int compatibility = g.getRoleCompatibility(other);
+                if (compatibility == bestCompatibility) {
+                    mostCompatible.add(other);
+                }
+                else if (compatibility < bestCompatibility) {
+                    mostCompatible.clear();
+                    mostCompatible.add(other);
+                    bestCompatibility = compatibility;
+                }
+            }
+
+            // from the more compatible groups, choose the first one I guess
+            Group other = mostCompatible.remove(0);
+
+            // remove the other group from the pq and combine the two groups
+            pq.remove(other);
+            g.combineWith(other);
+
+            // add the group back to the pq for further combinations
+            pq.add(g);
         }
 
         // return null
-        return null;
+        return finalGroups;
     }
 }

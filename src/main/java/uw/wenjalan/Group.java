@@ -46,16 +46,16 @@ public class Group {
         return false;
     }
 
-    // calculates the average timezone of this group
+    // calculates the average timezone of this group, rounded to the nearest integer
     // the average timezone is defined as the mean of the timezones of all
     // the members in the group
-    public double getMeanTimeZone() {
+    public long getMeanTimeZone() {
         double timeZoneSum = 0.0;
         for (Student s : members) {
             timeZoneSum += s.getTimezone();
         }
         double timeZoneMean = timeZoneSum / members.size();
-        return timeZoneMean;
+        return Math.round(timeZoneMean);
     }
 
     // returns a list of roles this group has
@@ -78,10 +78,20 @@ public class Group {
         StringBuilder sb = new StringBuilder();
         sb.append("Members (").append(members.size()).append("):\n");
         for (Student s : members) {
-            sb.append("\t").append(s.getName()).append(" (").append(s.getUwEmail()).append(")").append("\n");
+            sb.append("\t").append(s.getName()).append(" (").append(s.getUwEmail()).append("), TZO: ").append(s.getTimezone()).append("\n");
         }
         sb.append("Mean Time Zone: ").append(getMeanTimeZone()).append("\n");
         sb.append("Group Roles: ").append(getRoles());
         return sb.toString();
+    }
+
+    // returns the number of members in this group
+    public int size() {
+        return members.size();
+    }
+
+    // returns the number of role collisions (members with the same roles) with another group
+    public int getRoleCompatibility(Group other) {
+        return 0;
     }
 }
