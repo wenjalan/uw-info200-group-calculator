@@ -19,6 +19,7 @@ public class Main {
         if (args.length < 2) {
             // complain
             System.err.println("Please specify both a .xls file and a .cfg file");
+            System.err.println("Usage: java -jar uw-info-200-group-calculator.jar <survey responses>.xls <config file>.cfg");
             System.exit(1);
         }
 
