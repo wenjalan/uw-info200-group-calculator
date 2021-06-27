@@ -150,6 +150,24 @@ public class CfgReader {
             this.PREFERRED_TEAMMATES_COL = PREFERRED_TEAMMATES_COL;
             this.PREFERRED_ROLES_COL = PREFERRED_ROLES_COL;
         }
+
+        // toString
+        @Override
+        public String toString() {
+            return "Config{" +
+                    "MIN_GROUP_SIZE=" + MIN_GROUP_SIZE +
+                    ", MAX_GROUP_SIZE=" + MAX_GROUP_SIZE +
+                    ", MAX_TIME_DIFFERENCE=" + MAX_TIME_DIFFERENCE +
+                    ", DATA_START_ROW=" + DATA_START_ROW +
+                    ", LAST_NAME_COL=" + LAST_NAME_COL +
+                    ", FIRST_NAME_COL=" + FIRST_NAME_COL +
+                    ", UW_EMAIL_COL=" + UW_EMAIL_COL +
+                    ", TIME_ZONE_COL=" + TIME_ZONE_COL +
+                    ", HAS_PREFERRED_TEAMMATES_COL=" + HAS_PREFERRED_TEAMMATES_COL +
+                    ", PREFERRED_TEAMMATES_COL=" + PREFERRED_TEAMMATES_COL +
+                    ", PREFERRED_ROLES_COL=" + PREFERRED_ROLES_COL +
+                    '}';
+        }
     }
 
     // returns a configuration from a given file

@@ -20,7 +20,7 @@ import java.util.List;
 public class XlsSurveyReader {
 
     // returns a list of Students from a given file
-    public static List<Student> readFile(File file, File config) throws IOException {
+    public static List<Student> readFile(File file, CfgReader.Config cfg) throws IOException {
         // if the file does not end with .xls, complain
         if (!file.getName().endsWith(".xls")) {
             System.err.println("File does not end with .xls (Excel 1997-2003).");
@@ -28,9 +28,6 @@ public class XlsSurveyReader {
                 System.err.println("Please resave the file as an Excel 1997-2003 file.");
             }
         }
-
-        // read the associated .cfg file
-        CfgReader.Config cfg = CfgReader.readConfig(config);
 
         // create a new Workbook from the File
         Workbook workbook = new HSSFWorkbook(new FileInputStream(file));

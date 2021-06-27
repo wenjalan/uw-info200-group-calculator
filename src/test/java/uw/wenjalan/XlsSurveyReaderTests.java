@@ -15,7 +15,7 @@ public class XlsSurveyReaderTests {
         String configFilePath = "data/info200su2021.cfg";
         File f = new File(filepath);
         File cfg = new File(configFilePath);
-        List<Student> students = XlsSurveyReader.readFile(f, cfg);
+        List<Student> students = XlsSurveyReader.readFile(f, CfgReader.readConfig(cfg));
         for (Student s : students) {
             System.out.println(s);
         }
