@@ -1,7 +1,6 @@
 package uw.wenjalan;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -38,10 +37,14 @@ public class Main {
         // create groups from the files
         List<Group> groups = generateGroups(students, config);
 
-        // print them out for now
-        for (Group g : groups) {
-            System.out.println(g + "\n");
+        // print them out
+        int groupedStudents = 0;
+        for (int i = 1; i < groups.size() + 1; i++) {
+            Group g = groups.get(i - 1);
+            System.out.println("Group #" + i + " ============\n" + g + "\n\n");
+            groupedStudents += g.size();
         }
+        System.out.println("Done! Created " + groups.size() + " groups out of " + groupedStudents + " students");
     }
 
     // Generates groups of students with a given configuration.
@@ -93,13 +96,6 @@ public class Main {
             }
         }
 
-//        // pause
-//        Set<Group> groups = new HashSet<>(studentToGroups.values());
-//        System.out.println("Created " + groups.size() + " initial groups");
-//        for (Group g : groups) {
-//            System.out.println(g + "\n\n");
-//        }
-
         // add each group to a PriorityQueue based on their size
         Set<Group> groups = new HashSet<>(studentToGroups.values());
         // pq is set to arrange from largest (front) to smallest (back) group
@@ -109,11 +105,6 @@ public class Main {
                 )
         );
         pq.addAll(groups);
-
-//        // print groups in order I guess
-//        for (int i = 0; i < pq.size(); i++) {
-//            System.out.println(i + ": " + pq.remove() + "\n");
-//        }
 
         // while there are groups remaining in the pq, combine groups
         while (!pq.isEmpty()) {
@@ -181,7 +172,7 @@ public class Main {
             pq.add(g);
         }
 
-        // return null
+        // return the finalized groups
         return finalGroups;
     }
 }

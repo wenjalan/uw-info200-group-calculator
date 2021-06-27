@@ -54,8 +54,8 @@ public class Student {
         return name + " (" +
                 "uwEmail='" + uwEmail + '\'' +
                 ", timezone=" + timezone +
-                ", preferredTeammates=" + Arrays.toString(preferredTeammates) +
-                ", roles=" + Arrays.toString(roles) +
-                "})";
+//                ", preferredTeammates=" + Arrays.toString(preferredTeammates) +
+//                ", roles=" + Arrays.toString(roles) +
+                ")";
     }
 }
