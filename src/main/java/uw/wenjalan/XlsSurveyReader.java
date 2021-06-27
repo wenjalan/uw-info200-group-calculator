@@ -62,8 +62,8 @@ public class XlsSurveyReader {
             String[] preferredTeammates;
             if (row.getCell(cfg.HAS_PREFERRED_TEAMMATES_COL - 1).toString().equalsIgnoreCase("Yes") &&
                 row.getCell(cfg.PREFERRED_TEAMMATES_COL - 1) != null) {
-                // todo: grab all valid UW NetIDs from this string here
-                preferredTeammates = row.getCell(cfg.PREFERRED_TEAMMATES_COL - 1).toString().split("\n");
+                // grab all valid UW NetIDs from this string here
+                preferredTeammates = extractUwEmails(row.getCell(cfg.PREFERRED_TEAMMATES_COL - 1).toString());
             } else {
                 preferredTeammates = new String[0];
             }
@@ -82,6 +82,19 @@ public class XlsSurveyReader {
 
         // return students
         return students;
+    }
+
+    // extracts an array of UW emails from a given String
+    // returns: an array of UW emails, delimited by either a space " " or a comma "," or a newline "\n"
+    public static String[] extractUwEmails(String str) {
+        List<String> emails = new ArrayList<>();
+        String[] tokens = str.split("\\s+");
+        for (String token : tokens) {
+            if (token.endsWith("@uw.edu")) {
+                emails.add(token);
+            }
+        }
+        return emails.toArray(new String[]{});
     }
 
 }
