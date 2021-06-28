@@ -63,7 +63,7 @@ PREFERRED_ROLES_COL=13
 
 ### Step 3: Running the .jar
 ![image](https://user-images.githubusercontent.com/36051502/123704149-354e3800-d81a-11eb-8709-9288bc34c5f8.png)
-Clone (or download) the (jar directory)[https://github.com/wenjalan/uw-info200-group-calculator/tree/main/out/artifacts/group_calculator_jar] to your local machine. Replace the surveydata.xls and config.cfg files with your respective files. Run the `run.bat` included, or run the following command in the commandline in the same directory:  
+Clone (or download) the [jar directory](https://github.com/wenjalan/uw-info200-group-calculator/tree/main/out/artifacts/group_calculator_jar) to your local machine. Replace the surveydata.xls and config.cfg files with your respective files. Run the `run.bat` included, or run the following command in the commandline in the same directory:  
 
 `java -jar uw-info-200-group-calculator.jar surveydata.xls config.cfg`  
 
