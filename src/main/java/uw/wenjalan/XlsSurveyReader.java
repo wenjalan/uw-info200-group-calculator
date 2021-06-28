@@ -50,7 +50,14 @@ public class XlsSurveyReader {
             String studentEmail = row.getCell(cfg.UW_EMAIL_COL - 1).toString();
 
             // get their timezone offset
-            double timeZoneUTFOffset = Double.parseDouble(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
+            // if ENABLE_TIME_ZONE is 0, set everyone's timezone to 0.0 (Seattle PST)
+            double timeZoneUTFOffset;
+            if (cfg.ENABLE_TIME_ZONE == 1) {
+                timeZoneUTFOffset = Double.parseDouble(row.getCell(cfg.TIME_ZONE_COL - 1).toString());
+            }
+            else {
+                timeZoneUTFOffset = 0.0;
+            }
 
             // get their preferred role
             String[] preferredRoles = {};

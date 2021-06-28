@@ -53,7 +53,7 @@ public class Main {
     // The process for group creation is based on an "compatibility" rating, where lower numbers are more compatible.
     // The process will prioritize the factors in the following order:
     //  1. Preferred Teammates
-    //  2. Time Zone Difference
+    //  2. Time Zone Difference (will all be 0 if everyone's in Seattle)
     //  3. Preferred Role Diversity
     //
     // While creating groups, the following conditions must be satisfied:

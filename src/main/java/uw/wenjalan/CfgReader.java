@@ -16,6 +16,7 @@ public class CfgReader {
         // builder class
         public static class Builder {
             // fields
+            private int enableTimeZone;
             private int minGroupSize;
             private int maxGroupSize;
             private int maxTimeDifference;
@@ -30,10 +31,18 @@ public class CfgReader {
 
             // build method
             public Config build() {
-                return new Config(minGroupSize, maxGroupSize, maxTimeDifference, dataStartRow, lastNameCol, firstNameCol, uwEmailCol, timeZoneCol, hasPreferredTeammatesCol, preferredTeammatesCol, preferredRolesCol);
+                return new Config(enableTimeZone, minGroupSize, maxGroupSize, maxTimeDifference, dataStartRow, lastNameCol, firstNameCol, uwEmailCol, timeZoneCol, hasPreferredTeammatesCol, preferredTeammatesCol, preferredRolesCol);
             }
 
             // getters and setters
+            public int getEnableTimeZone() {
+                return enableTimeZone;
+            }
+
+            public void setEnableTimeZone(int enableTimeZone) {
+                this.enableTimeZone = enableTimeZone;
+            }
+
             public int getMinGroupSize() {
                 return minGroupSize;
             }
@@ -124,6 +133,7 @@ public class CfgReader {
         }
 
         // fields (public constants)
+        public final int ENABLE_TIME_ZONE;
         public final int MIN_GROUP_SIZE;
         public final int MAX_GROUP_SIZE;
         public final int MAX_TIME_DIFFERENCE;
@@ -137,7 +147,8 @@ public class CfgReader {
         public final int PREFERRED_ROLES_COL;
 
         // private constructor
-        private Config(int MIN_GROUP_SIZE, int MAX_GROUP_SIZE, int MAX_TIME_DIFFERENCE, int DATA_START_ROW, int LAST_NAME_COL, int FIRST_NAME_COL, int UW_EMAIL_COL, int TIME_ZONE_COL, int HAS_PREFERRED_TEAMMATES_COL, int PREFERRED_TEAMMATES_COL, int PREFERRED_ROLES_COL) {
+        private Config(int ENABLE_TIME_ZONE, int MIN_GROUP_SIZE, int MAX_GROUP_SIZE, int MAX_TIME_DIFFERENCE, int DATA_START_ROW, int LAST_NAME_COL, int FIRST_NAME_COL, int UW_EMAIL_COL, int TIME_ZONE_COL, int HAS_PREFERRED_TEAMMATES_COL, int PREFERRED_TEAMMATES_COL, int PREFERRED_ROLES_COL) {
+            this.ENABLE_TIME_ZONE = ENABLE_TIME_ZONE;
             this.MIN_GROUP_SIZE = MIN_GROUP_SIZE;
             this.MAX_GROUP_SIZE = MAX_GROUP_SIZE;
             this.MAX_TIME_DIFFERENCE = MAX_TIME_DIFFERENCE;
@@ -195,6 +206,9 @@ public class CfgReader {
 
             // store the pair in the builder
             switch (key) {
+                case "ENABLE_TIME_ZONE":
+                    builder.setEnableTimeZone(val);
+                    break;
                 case "MIN_GROUP_SIZE":
                     builder.setMinGroupSize(val);
                     break;
