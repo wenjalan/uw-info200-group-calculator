@@ -38,14 +38,13 @@ public class Main {
         // create groups from the files
         List<Group> groups = generateGroups(students, config);
 
-        // print them out
-        int groupedStudents = 0;
-        for (int i = 1; i < groups.size() + 1; i++) {
-            Group g = groups.get(i - 1);
-            System.out.println("Group #" + i + " ============\n" + g + "\n\n");
-            groupedStudents += g.size();
+        // write them to a file
+        File outputFile = new File("groups_" + file.getName());
+        if (!outputFile.exists()) {
+            outputFile.createNewFile();
         }
-        System.out.println("Done! Created " + groups.size() + " groups out of " + groupedStudents + " students");
+        XlsGroupWriter.writeGroups(groups, outputFile);
+        System.out.println("Done! Wrote groups to " + outputFile.getPath());
     }
 
     // Generates groups of students with a given configuration.
