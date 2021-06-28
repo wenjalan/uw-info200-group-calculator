@@ -83,6 +83,12 @@ public class Main {
             // find each preferred teammate and add them to this group
             for (String teammateId : s.getPreferredTeammates()) {
                 Student teammate = idsToStudents.get(teammateId.toLowerCase());
+
+                // if the requested teammate IS the student themselves, continue
+                if (s.equals(teammate)) {
+                    continue;
+                }
+
                 Group otherGroup = studentToGroups.get(teammate);
                 Group thisGroup = studentToGroups.get(s);
 
