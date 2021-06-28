@@ -10,7 +10,7 @@ This command-line application generates groups based on survey data collected at
 ### Step 1: Data Cleaning
 A few changes must be made to the original .xls file for the program to parse data correctly. This section will vary depending on the quarter, since the survey format is bound to change ever so slightly between quarters. The changes made to the data in Summer 2021 include the following:
 1. All entries in the column of data containing student time zones were converted to a single number describing how many hours ahead a student was from Seattle (e.g. "14 hours ahead" changed to "14")
-2. Students who responded "Yes" to if they wanted to request specific teammates, but didn't list any specific UW NetIDs were changed to "No" (e.g. "Place me in a group with people in my timezone!")
+2. Students who responded "Yes" to if they wanted to request specific teammates, but didn't list any specific UW NetIDs were changed to "No" (e.g. "Place me in a group with people in my timezone!" was ignored)
 3. Students who responded "No preference or don't know" to their requested role had their response emptied for that cell
 
 ### Step 2: Configuration
