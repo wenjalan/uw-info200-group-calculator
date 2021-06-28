@@ -12,7 +12,8 @@ The .cfg file contains various parameters that control the ingest and processing
 ## Prepping the .xls file
 The following modifications have been made to the Summer 2021 .xls file for convienence:
 1. The column containing time zone information has been reduced to a single number equaling the number of hours ahead a student is from Seattle (PST)
-2. Students who responded "yes" to requesting preferred teammates but did not respond with any specific students had their requests deleted
+2. Students who responded "yes" to requesting preferred teammates but did not respond with any specific students (e.g. "Put me in a group with others in the same time zone!) were set to "No" and the associated cell emptied
+3. Students who responded "No preference or don't know" to their preferred role had their response emptied for that cell
 
 ## Usage
 1. Navigate to out/artifacts/group_calculator_jar
